@@ -14,6 +14,26 @@ const Login = () => {
     const onSubmitHandler = async (event)=> {
         try {
            event.preventDefault();
+
+            if (state === "register") {
+
+        
+         const emailRegex = /^(?=.*\d)[^\s@]+@[^\s@]+\.[^\s@]+$/;
+             if (!emailRegex.test(email)) {
+            toast.error("Email must be valid and contain at least one number");
+    return;
+}
+
+            const passwordRegex =
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+            if (!passwordRegex.test(password)) {
+                toast.error(
+                    "Password must be 8+ chars, include uppercase, lowercase, number & special character"
+                );
+                return;
+            }
+        }
            
            const {data} = await axios.post(`/api/user/${state}`,{
             name, email, password
